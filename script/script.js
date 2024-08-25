@@ -17,4 +17,5 @@ async function  conectaApi() {
         const conectaTraduzido = await conecta.json()
         console.log(conectaTraduzido)
 }
-conectaApi()
+
+setInterval(() => conectaApi(), 5000)
