@@ -13,15 +13,15 @@ const graficoParaDolar = new Chart(graficoDolar, {
     },
 });
 
-setInterval(() => conectaApi(), 5000)
-async function conectaApi() {
-    const conecta = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
-    const conectaTraduzido = await conecta.json()
-    let tempo = geraHorario()
-    let valor = conectaTraduzido.USDBRL.ask
-    adicionardados(graficoParaDolar, tempo, valor)
-    imprimeCotacao("dolar", valor)
-}
+//setInterval(() => conectaApi(), 5000)
+// async function conectaApi() {
+//     const conecta = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
+//     const conectaTraduzido = await conecta.json()
+//     let tempo = geraHorario()
+//     let valor = conectaTraduzido.USDBRL.ask
+//     adicionardados(graficoParaDolar, tempo, valor)
+//     imprimeCotacao("dolar", valor)
+// }
 
 function geraHorario() {
     let data = new Date()
@@ -38,3 +38,12 @@ function adicionardados(grafico, legenda, dados) {
     grafico.update()
 }
 
+let workerDolar = new Worker('./script/workes/workerDolar.js')
+workerDolar.postMessage('usd')
+
+workerDolar.addEventListener("message", event => {
+    let tempo = geraHorario()
+    let valor = event.data.ask
+    imprimeCotacao("dolar", valor)
+    adicionardados(graficoParaDolar, tempo, valor)
+})
