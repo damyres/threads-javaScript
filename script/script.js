@@ -1,3 +1,4 @@
+import imprimeCotacao from "./imprimeCotacao.js";
 const graficoDolar = document.getElementById('graficoDolar')
 
 const graficoParaDolar = new Chart(graficoDolar, {
@@ -19,6 +20,7 @@ async function conectaApi() {
     let tempo = geraHorario()
     let valor = conectaTraduzido.USDBRL.ask
     adicionardados(graficoParaDolar, tempo, valor)
+    imprimeCotacao("dolar", valor)
 }
 
 function geraHorario() {
