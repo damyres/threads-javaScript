@@ -60,3 +60,6 @@ const farficoParaIene = new Chart(graficoIene, {
         }],
     }
 })
+
+let workerIene = new Worker("./script/workes/workerIene.js")
+workerIene.postMessage("iene")
