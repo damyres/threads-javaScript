@@ -1,11 +1,11 @@
 addEventListener("message", event => {
-    conectaAPI()
+    conectaAPI();
     setInterval(() => conectaAPI(), 5000)
 })
 
 async function conectaAPI() {
-    const conecta = await fetch("https://economia.awesomeapi.com.br/last/JPY-BRL")
+    const conecta = await fetch('https://economia.awesomeapi.com.br/last/JPY-BRL')
     const conectaTraduzido = await conecta.json()
-    postMessage(conectaTraduzido.JPYbrl)
+    postMessage(conectaTraduzido.JPYBRL)
     
 }

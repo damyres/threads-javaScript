@@ -30,7 +30,7 @@ function geraHorario() {
     return horario
 }
 
-function adicionardados(grafico, legenda, dados) {
+function adicionarDados(grafico, legenda, dados) {
     grafico.data.labels.push(legenda)
     grafico.data.datasets.forEach((dataset) => {
         dataset.data.push(dados)
@@ -45,11 +45,11 @@ workerDolar.addEventListener("message", event => {
     let tempo = geraHorario()
     let valor = event.data.ask
     imprimeCotacao("dolar", valor)
-    adicionardados(graficoParaDolar, tempo, valor)
+    adicionarDados(graficoParaDolar, tempo, valor)
 })
 
 const graficoIene = document.getElementById('graficoIene')
-const farficoParaIene = new Chart(graficoIene, {
+const graficoParaIene = new Chart(graficoIene, {
     type: 'line',
     data: {
         labels: [],
@@ -63,3 +63,10 @@ const farficoParaIene = new Chart(graficoIene, {
 
 let workerIene = new Worker("./script/workes/workerIene.js")
 workerIene.postMessage("iene")
+
+workerIene.addEventListener("message", event => {
+    let tempo = geraHorario()
+    let valor = event.data.ask
+    adicionarDados(graficoParaIene, tempo, valor)
+    imprimeCotacao("iene", valor)
+})
